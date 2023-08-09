@@ -1,4 +1,4 @@
-# movie_app_2
+# Cinemapedia
 
 A new Flutter project.
 
