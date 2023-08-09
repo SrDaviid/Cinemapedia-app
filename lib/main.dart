@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_2/config/router/app_router.dart';
+import 'package:movie_app_2/config/theme/app_theme.dart';
 
 void main() => runApp(const MyApp());
 
@@ -7,16 +9,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      theme: AppTheme().getTheme(),
+      routerConfig: appRouter,
     );
   }
 }
