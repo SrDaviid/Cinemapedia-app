@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_2/config/environment/environment.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = 'home-screen';
@@ -13,6 +14,9 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.indigo,
+      ),
+      body: Center(
+        child: Text(Environment.movieApiKey),
       ),
     );
   }
