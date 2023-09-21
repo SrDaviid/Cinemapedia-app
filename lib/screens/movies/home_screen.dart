@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: _HomeView(),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
@@ -34,10 +35,17 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     //Listado de películas
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
 
+    final slideShowMovies = ref.watch(moviesSlidershowProvider);
+
     return Column(
       children: [
         const CustomAppbar(),
-        MoviesSlidershow(movies: nowPlayingMovies)
+        MoviesSlidershow(movies: slideShowMovies),
+        MovieHorizontalListView(
+          movies: nowPlayingMovies,
+          title: 'En cines',
+          subTitle: 'Martes',
+        )
       ],
     );
   }
