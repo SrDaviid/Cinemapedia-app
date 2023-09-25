@@ -20,7 +20,7 @@ class CustomAppbar extends StatelessWidget {
             const SizedBox(width: 5),
             const Text(
               'Cinemapedia',
-              style: TextStyle(fontWeight: FontWeight.w600),
+              style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black, fontSize: 15),
             ),
             const Spacer(),
             IconButton(onPressed: () {}, icon: const Icon(Icons.search))
