@@ -30,34 +30,36 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
     ref.read(popularMoviesProvider.notifier).loadNextPage();
     ref.read(upcomingMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
-    //Listado de películas
+    //Providers
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlidershowProvider);
     final popularMovies = ref.watch(popularMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
+    final topRatedMovies = ref.watch(topRatedMoviesProvider);
 
     return CustomScrollView(
-        // The slivers works directly with scroll view
-        slivers: [
-          const SliverAppBar(
-            floating: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: CustomAppbar(),
-            ),
+      // The slivers works directly with scroll view
+      slivers: [
+        const SliverAppBar(
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title: CustomAppbar(),
           ),
-          SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
             return Column(
               children: [
                 MoviesSlidershow(movies: slideShowMovies),
                 MovieHorizontalListView(
                   movies: nowPlayingMovies,
                   title: 'In Theaters',
-                  subTitle: 'Monday',
+                  subTitle: 'Tuesday ',
                   loadNextPage: () {
                     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
                   },
@@ -77,15 +79,17 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   },
                 ),
                 MovieHorizontalListView(
-                  movies: nowPlayingMovies,
+                  movies: topRatedMovies,
                   title: 'Top Rating',
                   loadNextPage: () {
-                    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+                    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
                   },
                 ),
               ],
             );
-          }, childCount: 10))
-        ]);
+          }, childCount: 1),
+        )
+      ],
+    );
   }
 }
