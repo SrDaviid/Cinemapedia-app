@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app_2/providers/movies/movies_repository_provider.dart';
 import '../../models/models.dart';
 
+//NowPlayingMoviesProvider
 final nowPlayingMoviesProvider =
     StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
   final fetchMoreMovies = ref.watch(movieRepositoryProvider).getNowPlaying;
@@ -9,9 +10,18 @@ final nowPlayingMoviesProvider =
   return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
 });
 
+//PopularMoviesProvider
 final popularMoviesProvider =
     StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
   final fetchMoreMovies = ref.watch(movieRepositoryProvider).getPopularMovies;
+
+  return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
+});
+
+//UpcomingMoviesProvider
+final upcomingMoviesProvider =
+    StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
+  final fetchMoreMovies = ref.watch(movieRepositoryProvider).getUpComingMovies;
 
   return MoviesNotifier(fetchMoreMovies: fetchMoreMovies);
 });
