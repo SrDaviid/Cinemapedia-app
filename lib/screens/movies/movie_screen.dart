@@ -153,6 +153,19 @@ class _ActorsByMovie extends ConsumerWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
+                ),
+                Text(
+                  actor.name, maxLines: 2,
+                  style: GoogleFonts.nunito(
+                    textStyle: const TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Text(
+                  actor.character.toString(),
+                  style: GoogleFonts.nunito(
+                    textStyle: const TextStyle(
+                        fontWeight: FontWeight.w800),
+                  ),
                 )
               ],
             ),
