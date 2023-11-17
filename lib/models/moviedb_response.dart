@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:movie_app_2/models/models.dart';
 
 MovieDbResponse movieDbResponseFromJson(String str) =>
