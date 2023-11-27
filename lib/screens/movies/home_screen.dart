@@ -91,42 +91,42 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                     ref.read(topRatedMoviesProvider.notifier).loadNextPage();
                   },
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    "Maria Fernanda's movies",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-                  ),
-                ),
-                SizedBox(
-                  height: 300,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: const EdgeInsets.all(8),
-                        width: 135,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FadeInRight(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.network(
-                                  'https://resources.booztcdn.com/357096-1663144073_rev1BarbieInstaVertHighResJPEG.webp',
-                                  height: 200,
-                                  width: 135,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                )
+                // const Padding(
+                //   padding: EdgeInsets.only(left: 10),
+                //   child: Text(
+                //     "Maria Fernanda's movies",
+                //     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 300,
+                //   child: ListView.builder(
+                //     scrollDirection: Axis.horizontal,
+                //     itemCount: 4,
+                //     itemBuilder: (context, index) {
+                //       return Container(
+                //         padding: const EdgeInsets.all(8),
+                //         width: 135,
+                //         child: Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             FadeInRight(
+                //               child: ClipRRect(
+                //                 borderRadius: BorderRadius.circular(20),
+                //                 child: Image.network(
+                //                   'https://resources.booztcdn.com/357096-1663144073_rev1BarbieInstaVertHighResJPEG.webp',
+                //                   height: 200,
+                //                   width: 135,
+                //                   fit: BoxFit.cover,
+                //                 ),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       );
+                //     },
+                //   ),
+                // )
               ],
             );
           }, childCount: 1),
