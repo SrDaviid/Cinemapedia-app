@@ -144,18 +144,21 @@ class _ActorsByMovie extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FadeInRight(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      actor.profilePath,
-                      height: 150,
-                      width: 135,
-                      fit: BoxFit.cover,
+                  child: FadeInRight(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        actor.profilePath,
+                        height: 150,
+                        width: 135,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
                 Text(
-                  actor.name, maxLines: 2,
+                  actor.name,
+                  maxLines: 2,
                   style: GoogleFonts.nunito(
                     textStyle: const TextStyle(fontWeight: FontWeight.w500),
                   ),
@@ -163,8 +166,7 @@ class _ActorsByMovie extends ConsumerWidget {
                 Text(
                   actor.character.toString(),
                   style: GoogleFonts.nunito(
-                    textStyle: const TextStyle(
-                        fontWeight: FontWeight.w800),
+                    textStyle: const TextStyle(fontWeight: FontWeight.w800),
                   ),
                 )
               ],
@@ -190,20 +192,16 @@ class _CustomSliverAppBar extends StatelessWidget {
       expandedHeight: size.height * 0.7,
       foregroundColor: Colors.white,
       flexibleSpace: FlexibleSpaceBar(
-        // titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        // title: Text(
-        //   movie.title,
-        //   style: GoogleFonts.nunito(
-        //     textStyle: const TextStyle(fontWeight: FontWeight.w800),
-        //   ),
-        //   textAlign: TextAlign.left,
-        // ),
         background: Stack(
           children: [
             SizedBox.expand(
               child: Image.network(
                 movie.posterPath,
                 fit: BoxFit.cover,
+                loadingBuilder: ((context, child, loadingProgress) {
+                  if (loadingProgress != null) return const SizedBox();
+                  return FadeIn(child: child);
+                }),
               ),
             ),
             const SizedBox.expand(
