@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_2/screens/delegates/search_movie_delegate.dart';
 
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar({super.key});
@@ -7,26 +8,41 @@ class CustomAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       bottom: false,
-        child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: SizedBox(
-        width: double.infinity,
-        child: Row(
-          children: [
-            const Icon(
-              Icons.movie_outlined,
-              color: Colors.indigo,
-            ),
-            const SizedBox(width: 5),
-            const Text(
-              'Cinemapedia',
-              style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black, fontSize: 20),
-            ),
-            const Spacer(),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.search, size: 20,))
-          ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: SizedBox(
+          width: double.infinity,
+          child: Row(
+            children: [
+              const Icon(
+                Icons.movie_outlined,
+                color: Colors.indigo,
+              ),
+              const SizedBox(width: 5),
+              const Text(
+                'Cinemapedia',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontSize: 20),
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: SearchMovieDelegate(),
+                  );
+                },
+                icon: const Icon(
+                  Icons.search,
+                  size: 26,
+                ),
+              )
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
