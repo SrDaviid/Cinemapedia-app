@@ -1,7 +1,7 @@
 // import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:movie_app_2/config/helpers/human_formats.dart';
 import 'package:movie_app_2/providers/providers.dart';
 import 'package:movie_app_2/widgets/widgets.dart';
 
@@ -80,6 +80,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                 MovieHorizontalListView(
                   movies: upcomingMovies,
                   title: 'Coming Soon',
+                  subTitle: getMonth(),
                   loadNextPage: () {
                     ref.read(upcomingMoviesProvider.notifier).loadNextPage();
                   },
@@ -133,11 +134,5 @@ class _HomeViewState extends ConsumerState<_HomeView> {
         )
       ],
     );
-  }
-
-  String getDayOfWeek() {
-    DateTime now = DateTime.now();
-    String dayOfWeek = DateFormat('EEEE').format(now);
-    return dayOfWeek;
   }
 }
