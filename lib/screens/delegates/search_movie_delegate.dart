@@ -1,26 +1,157 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app_2/config/helpers/human_formats.dart';
+import '../../models/models.dart';
 
-class SearchMovieDelegate extends SearchDelegate {
+typedef SearchMoviesCallback = Future<List<Movie>> Function(String query);
+
+class SearchMovieDelegate extends SearchDelegate<Movie?> {
+  final SearchMoviesCallback searchMovies;
+
+  SearchMovieDelegate({required this.searchMovies});
 
   @override
   String get searchFieldLabel => 'Search movie';
+
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [const Text('BuildActions')];
+    return [
+      // if (query.isNotEmpty)
+      FadeIn(
+        animate: query.isNotEmpty,
+        duration: const Duration(milliseconds: 200),
+        child: IconButton(
+          onPressed: () => query = '',
+          icon: const Icon(Icons.clear),
+        ),
+      ),
+    ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    return const Text('BuildLeading');
+    return IconButton(
+      onPressed: () => close(context, null),
+      icon: const Icon(Icons.arrow_back_ios),
+    );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-   return const Text('BuildResults');
+    return FutureBuilder(
+      future: searchMovies(query),
+      builder: (context, snapshot) {
+        final movies = snapshot.data ?? [];
+
+        return ListView.builder(
+          itemCount: movies.length,
+          itemBuilder: (context, index) => _MovieSearchItem(
+            movie: movies[index],
+            onMovieSelected: close,
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return const Text('BuildSuggestions');
+    return FutureBuilder(
+      future: searchMovies(query),
+      builder: (context, snapshot) {
+        final movies = snapshot.data ?? [];
+
+        return ListView.builder(
+          itemCount: movies.length,
+          itemBuilder: (context, index) => _MovieSearchItem(
+            movie: movies[index],
+            onMovieSelected: close,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _MovieSearchItem extends StatelessWidget {
+  final Movie movie;
+  final Function onMovieSelected;
+
+  const _MovieSearchItem({required this.movie, required this.onMovieSelected});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return GestureDetector(
+      onTap: () {
+        onMovieSelected(context, movie);
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          //Image
+          children: [
+            SizedBox(
+              width: size.width * 0.2,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  movie.posterPath,
+                  // loadingBuilder: (context, child, loadingProgress) => FadeIn(child: child),
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            SizedBox(
+              width: size.width * 0.7,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    movie.title,
+                    style: GoogleFonts.nunito(
+                        fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  (movie.overview.length > 100)
+                      ? Text(
+                          '${movie.overview.substring(0, 100)}...',
+                          style: GoogleFonts.nunito(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      : Text(
+                          movie.overview,
+                          style:
+                              GoogleFonts.nunito(fontWeight: FontWeight.w600),
+                        ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.star_half_outlined,
+                        color: Colors.yellow.shade900,
+                        size: 16,
+                      ),
+                      Text(
+                        HumanFormats.number(movie.voteAverage, 1),
+                        // movie.voteAverage.toStringAsFixed(1),
+                        style: GoogleFonts.nunito(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 11,
+                          color: Colors.yellow.shade900,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
