@@ -106,7 +106,6 @@ class CustomSliverList extends StatelessWidget {
                 _ActorsByMovie(
                   movieId: movie.id.toString(),
                 ),
-                const SizedBox(height: 70)
               ],
             ),
           ),
