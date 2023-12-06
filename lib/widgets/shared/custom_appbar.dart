@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app_2/screens/delegates/search_movie_delegate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movie_app_2/models/models.dart';
+import 'package:movie_app_2/providers/providers.dart';
+import '../../screens/delegates/search_movie_delegate.dart';
 
-class CustomAppbar extends StatelessWidget {
+class CustomAppbar extends ConsumerWidget {
   const CustomAppbar({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       bottom: false,
       child: Padding(
@@ -29,9 +33,17 @@ class CustomAppbar extends StatelessWidget {
               const Spacer(),
               IconButton(
                 onPressed: () {
-                  showSearch(
+                  final moviesRepository = ref.read(movieRepositoryProvider);
+
+                  showSearch<Movie?>(
                     context: context,
-                    delegate: SearchMovieDelegate(),
+                    delegate: SearchMovieDelegate(
+                        searchMovies: moviesRepository.searchMovie),
+                  ).then(
+                    (movie) {
+                      if (movie == null) return;
+                      context.push('/movie/${movie.id}');
+                    },
                   );
                 },
                 icon: const Icon(
