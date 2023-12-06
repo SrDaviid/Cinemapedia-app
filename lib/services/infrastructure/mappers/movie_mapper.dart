@@ -6,7 +6,7 @@ class MovieMapper {
       adult: moviedb.adult,
       backdropPath: moviedb.backdropPath != ''
           ? 'https://image.tmdb.org/t/p/w500${moviedb.backdropPath}'
-          : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png',
+          : 'https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg',
       genreIds: moviedb.genreIds.map((e) => e.toString()).toList(),
       id: moviedb.id,
       originalLanguage: moviedb.originalLanguage,
@@ -15,17 +15,16 @@ class MovieMapper {
       popularity: moviedb.popularity,
       posterPath: moviedb.posterPath != ''
           ? 'https://image.tmdb.org/t/p/w500${moviedb.posterPath}'
-          : 'no-poster',
-      releaseDate: moviedb.releaseDate,
+          : 'https://www.movienewz.com/img/films/poster-holder.jpg',
+      releaseDate:
+          moviedb.releaseDate != null ? moviedb.releaseDate! : DateTime.now(),
       title: moviedb.title,
       video: moviedb.video,
       voteAverage: moviedb.voteAverage,
       voteCount: moviedb.voteCount);
 
-
-    static Movie movieDetailsToEntity (MovieDetails movieDetails) => Movie(
-
-       adult: movieDetails.adult,
+  static Movie movieDetailsToEntity(MovieDetails movieDetails) => Movie(
+      adult: movieDetails.adult,
       backdropPath: movieDetails.backdropPath != ''
           ? 'https://image.tmdb.org/t/p/w500${movieDetails.backdropPath}'
           : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png',
@@ -43,5 +42,4 @@ class MovieMapper {
       video: movieDetails.video,
       voteAverage: movieDetails.voteAverage,
       voteCount: movieDetails.voteCount);
-    
 }
