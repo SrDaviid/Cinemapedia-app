@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_app_2/screens/screens.dart';
 
 final appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/login',
   routes: [
     GoRoute(
       path: '/',
@@ -27,5 +27,10 @@ final appRouter = GoRouter(
     //     return MovieScreen(movieId: movieId);
     //   },
     //  ),
+    GoRoute(
+      path: '/login',
+      name: LoginScreen.name,
+      builder: (context, state) => const LoginScreen(),
+    ),
   ],
 );
