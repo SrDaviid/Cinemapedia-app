@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app_2/models/models.dart';
 import 'package:movie_app_2/providers/actors/actors_by_movie_provider.dart';
 import 'package:movie_app_2/providers/movies/movie_details_provider.dart';
+import 'package:movie_app_2/services/url_service.dart';
 import '../../models/movie_models.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
@@ -106,6 +107,19 @@ class CustomSliverList extends StatelessWidget {
                 _ActorsByMovie(
                   movieId: movie.id.toString(),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: IconButton(
+                      onPressed: () {
+                        launchURL(
+                            "https://ww16.0123movie.net/movie/kung-fu-panda-4-1630856711.html");
+                      },
+                      icon: const Icon(
+                        Icons.person,
+                        size: 50,
+                        color: Colors.red,
+                      )),
+                )
               ],
             ),
           ),
@@ -130,7 +144,7 @@ class _ActorsByMovie extends ConsumerWidget {
     final actors = actorsByMovie[movieId]!;
 
     return SizedBox(
-      height: 300,
+      height: 250,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: actors.length,
